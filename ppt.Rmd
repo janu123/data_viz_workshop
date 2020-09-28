@@ -1,0 +1,49 @@
+---
+title: "Data visualization using R"
+author: "Janani Selvaraj"
+date: "4 July 2018"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction to ggplot2
+
+```{r, echo=TRUE}
+library(ggplot2)
+data("midwest", package = "ggplot2")
+ggplot(midwest, aes(x=area, y=poptotal))
+
+```
+
+## Simple scatter plot
+
+```{r, echo=TRUE}
+ggplot(midwest, aes(x=area, y=poptotal)) + geom_point()
+```
+
+
+## Adjusting the X and Y axis limits
+
+```{r,echo=TRUE}
+g <- ggplot(midwest, aes(x=area, y=poptotal)) + geom_point() + geom_smooth(method="lm")  # set se=FALSE to turnoff confidence bands
+
+# Delete the points outside the limits
+g + xlim(c(0, 0.1)) + ylim(c(0, 1000000))   # deletes points
+```
+
+## Zooming In
+```{r, echo=TRUE}
+g <- ggplot(midwest, aes(x=area, y=poptotal)) + geom_point() + geom_smooth(method="lm")  # set se=FALSE to turnoff confidence bands
+
+# Zoom in without deleting the points outside the limits. 
+# As a result, the line of best fit is the same as the original plot.
+g1 <- g + coord_cartesian(xlim=c(0,0.1), ylim=c(0, 1000000))  # zooms in
+plot(g1)
+```
+
+
+
+
